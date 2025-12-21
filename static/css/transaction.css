@@ -1,0 +1,268 @@
+/* Dashboard Background */
+.dashboard-bg {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  padding: 20px 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Date Range Picker Styling */
+.date-range-picker {
+  background: white;
+  padding: 10px 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.date-range-picker input {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.date-range-picker input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Main Transaction Card */
+.transaction-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: none;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.transaction-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 40px rgba(0, 2, 24, 0.432);
+}
+
+/* Card Header */
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  padding: 25px 30px;
+  text-align: center;
+}
+
+.card-title {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card Body */
+.card-body {
+  padding: 35px 30px;
+}
+
+/* Form Groups */
+.form-group {
+  position: relative;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+/* Custom Form Controls */
+.custom-input,
+.custom-select,
+.custom-textarea {
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+.custom-input:focus,
+.custom-select:focus,
+.custom-textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: white;
+  outline: none;
+}
+
+.custom-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Input Group Styling */
+.input-group-text {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.input-group .custom-input {
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+}
+
+.input-group:focus-within .input-group-text {
+  border-color: #667eea;
+  background: white;
+}
+
+/* Action Buttons */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+}
+
+.btn-cancel {
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  color: #4a5568;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+  color: #2d3748;
+  transform: translateY(-1px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .dashboard-bg {
+    padding: 10px 0;
+  }
+
+  .card-body {
+    padding: 25px 20px;
+  }
+
+  .card-header {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-submit,
+  .btn-cancel {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .date-range-picker {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .date-range-picker span {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .container-fluid {
+    padding: 0 10px;
+  }
+
+  .transaction-card {
+    margin: 0 5px;
+    border-radius: 15px;
+  }
+}
+
+/* Animation for form validation */
+.was-validated .form-control:invalid {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+.was-validated .form-control:valid {
+  border-color: #48bb78;
+  box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.1);
+}
+
+/* Loading state */
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-submit.loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn-submit.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,190 @@
+{% extends "layout.html" %} {% block title %}Add New Transaction - ExpenseWise{%
+endblock %} {% block content %}
+<div class="dashboard-bg">
+  <div class="container-fluid">
+    <!-- Main Form Container -->
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+        <div class="transaction-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="fas fa-plus-circle me-2"></i>
+              Add New Transaction
+            </h2>
+          </div>
+
+          <div class="card-body">
+            <form
+              method="post"
+              action="{{ url_for('add_transaction')}}"
+              id="transactionForm"
+            >
+              <div class="row justify-content-center mb-4">
+                <div class="col-12 col-md-6 text-center">
+                  <label class="form-label d-block">
+                    <i class="fas fa-exchange-alt me-2"></i> Transaction Type
+                  </label>
+                  <div
+                    class="btn-group w-100"
+                    role="group"
+                    aria-label="Transaction Type"
+                  >
+                    <input
+                      type="radio"
+                      class="btn-check"
+                      name="transaction_type"
+                      id="income"
+                      value="income"
+                      required
+                      autocomplete="off"
+                    />
+                    <label class="btn btn-outline-primary" for="income"
+                      >INCOME</label
+                    >
+
+                    <input
+                      type="radio"
+                      class="btn-check"
+                      name="transaction_type"
+                      id="expense"
+                      value="expense"
+                      autocomplete="off"
+                    />
+                    <label class="btn btn-outline-primary" for="expense"
+                      >EXPENSE</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 1: Transaction Type & Category -->
+              <div class="row mb-4">
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">🏦 Select Account</label>
+                    <select
+                      class="form-select custom-select"
+                      name="account_id"
+                      id="account_id"
+                      required
+                    >
+                      <option value="">Select an account</option>
+                      {% for account in accounts %}
+                      <option value="{{ account.id }}">
+                        {{ account.account_name }}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">🗂️ Category</label>
+                    <select
+                      class="form-select custom-select"
+                      name="category"
+                      id="category"
+                      required
+                    >
+                      <option value="">Select category</option>
+                      <option value="food">🍽️ Food</option>
+                      <option value="rent">🏠 Rent</option>
+                      <option value="bills">⚡ Bills</option>
+                      <option value="shopping">🛍️ Shopping</option>
+                      <option value="other">📋 Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 2: Amount & Date -->
+              <div class="row mb-4">
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">💵 Amount</label>
+                    <div class="input-group">
+                      <span class="input-group-text">₹</span>
+                      <input
+                        type="number"
+                        class="form-control custom-input"
+                        name="amount"
+                        id="amount"
+                        placeholder="0.00"
+                        step="0.01"
+                        min="0"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <label class="form-label">
+                      <i class="fas fa-calendar me-2"></i> Date
+                    </label>
+                    <input
+                      type="date"
+                      class="form-control custom-input"
+                      name="date"
+                      id="date"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 3: Description (full width) -->
+              <div class="form-group mb-4">
+                <label class="form-label">
+                  <i class="fas fa-align-left me-2"></i> Description
+                </label>
+                <textarea
+                  class="form-control custom-textarea"
+                  name="description"
+                  id="description"
+                  rows="3"
+                  placeholder="Enter transaction description (optional)"
+                ></textarea>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="form-actions">
+                 <a href="{{ url_for('dashboard') }}" class="btn btn-cancel me-3">
+                  <i class="fas fa-times me-2"></i> Cancel </a>
+                
+                <button type="submit" class="btn btn-submit">
+                  <i class="fas fa-plus me-2"></i> Add Transaction
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      $(document).ready(function () {
+        {% for category, message in messages %}
+          toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "timeOut": "4000",
+            "positionClass": "toast-top-right"
+          };
+          toastr["{{ category }}"]("{{ message }}");
+        {% endfor %}
+      });
+    {% endif %}
+  {% endwith %}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+{% endblock %}

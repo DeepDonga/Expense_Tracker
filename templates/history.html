@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-3">Transaction History</h2>
+
+  <!-- Filters -->
+  <form id="filterForm" class="row g-3 mb-4">
+    <div class="col-md-3">
+      <input type="date" id="start_date" name="start_date" class="form-control">
+    </div>
+    <div class="col-md-3">
+      <input type="date" id="end_date" name="end_date" class="form-control">
+    </div>
+    <div class="col-md-3">
+      <input type="text" id="category" name="category" class="form-control" placeholder="Category">
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+  </form>
+
+  <!-- Transactions Table -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Account</th>
+          <th>Amount</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody id="transactionTableBody">
+        <!-- Filled dynamically -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  async function loadTransactions(filters = {}) {
+    let url = new URL("{{ url_for('get_history') }}", window.location.origin);
+
+    // Append filters to query params
+    Object.keys(filters).forEach(key => {
+      if (filters[key]) url.searchParams.append(key, filters[key]);
+    });
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const tbody = document.getElementById("transactionTableBody");
+    tbody.innerHTML = "";
+
+    if (!data.transactions || data.transactions.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" class="text-center">No transactions found.</td></tr>`;
+      return;
+    }
+
+    data.transactions.forEach(t => {
+      let row = `
+        <tr>
+          <td>${t.date}</td>
+          <td>${t.transaction_type}</td>
+          <td>${t.category}</td>
+          <td>${t.account || '-'}</td>
+          <td>₹${t.amount}</td>
+          <td>${t.description || '-'}</td>
+        </tr>`;
+      tbody.insertAdjacentHTML("beforeend", row);
+    });
+  }
+
+  // Load transactions on page load
+  document.addEventListener("DOMContentLoaded", () => {
+    loadTransactions();
+
+    // Handle filter form submit
+    document.getElementById("filterForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const filters = {
+        start_date: document.getElementById("start_date").value,
+        end_date: document.getElementById("end_date").value,
+        category: document.getElementById("category").value
+      };
+      loadTransactions(filters);
+    });
+  });
+
+</script>
+{% endblock %}
